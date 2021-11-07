@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 欢迎来到我的世界
-subtitle: 我是一只小小程序猿
-description: 目标大前端
+title: 独
+subtitle: iOS高级工程师, 目前正在学习React、RN！！！(恭喜EDG夺冠)
+description: 孤独可以使人能干，也可以使人笨拙。
 keywords: Object-C Swift React-native CSS HTML5 JavaScript
-author: Tangqiang
+author: 汤强
 language: 中文
 timezone:
 
@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
