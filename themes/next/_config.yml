@@ -360,7 +360,7 @@ han: false
 
 # Disqus
 disqus:
-  enable: true
+  enable: false
   shortname:
   count: true
 
@@ -369,9 +369,9 @@ disqus:
 
 # changyan
 changyan:
-  enable: false
-  appid:
-  appkey:
+  enable: true
+  appid: cyvKt8fPj
+  appkey: f1e9c5077c3fea17de408f75f1444e54
 
 
 # Valine.
@@ -418,8 +418,8 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-#baidushare:
-##  type: button
+baidushare:
+  type: button
 
 # Share
 # This plugin is more useful in China, make sure you known how to use it.
