@@ -51,3 +51,7 @@ JSX是JavaScript的语法糖，在Babel编译的时候会将元素转换成<code
 
 ### React的事件响应和传递机制?(捕获、冒泡)
 
+
+> [Babel、polyfill](https://zh.javascript.info/polyfills#babel)
+
+> [React官方文档](https://zh-hans.reactjs.org/)
