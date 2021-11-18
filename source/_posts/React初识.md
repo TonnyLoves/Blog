@@ -49,9 +49,14 @@ JSX是JavaScript的语法糖，在Babel编译的时候会将元素转换成<code
 
 ### React元素是如何渲染的？(客户端是如何渲染的？)
 
+
+
 ### React的事件响应和传递机制?(捕获、冒泡)
 
+### 参考文件:
 
-> [Babel、polyfill](https://zh.javascript.info/polyfills#babel)
+[Babel、polyfill](https://zh.javascript.info/polyfills#babel)
 
-> [React官方文档](https://zh-hans.reactjs.org/)
+[React官方文档](https://zh-hans.reactjs.org/)
+
+[你不知道的浏览器渲染原理](https://www.infoq.cn/article/dltdultozik_zrqfb4jg)
