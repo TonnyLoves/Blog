@@ -29,9 +29,8 @@ React是由Facebook开发并维护的***声明式***，***高效***且***灵活*
 JSX是JavaScript的语法糖，在Babel编译的时候会将元素转换成<code>React.createElement(component, props, ...children)</code>函数；它可以很好的描述UI应该呈现出交互的本质形式，能更直观的表示出元素之间的关系。
 
 > ***Babel是一个JavaScript编译器***
-
+>
 > Babel是一个工具链，主要用于将采用ECMASceipt2015+语法编写的代码转换为向后兼容的JavaScript语法，以便能够运行在当前和旧版本的浏览器或其他环境中。Babel到底做了什么呢？
-
 > * 语法转换
 > * 通过Polyfill方式在目标环境中添加缺失的特性
 > * 源码转换(codemods)
@@ -45,13 +44,20 @@ JSX是JavaScript的语法糖，在Babel编译的时候会将元素转换成<code
 
 1. UI构建方式：UI构建方便与H5相似，对应前端开发人员来说还是熟悉的配方，并且更加灵活。因为它本质上就是JavaScript；同时也不需要专门的学习一种新的模板语言，来动态的修改h5,而是直接使用JSX描述组件。
 2. 防止注入攻击：React DOM在渲染所有输入内容之前，会默认进行转义。它可以确保在你的应用中，永远不会注入那些并非自己明确编写的内容。所有的内容在渲染之前都被转换成了字符串。
+
+> ***为什么JSX能够防止注入攻击？*** 
+>
+> 
+
 3. JSX是表达式：既可以是对象，也可以是函数；也就是说，你可以在 if 语句和 for 循环的代码块中使用 JSX，将 JSX 赋值给变量，把 JSX 当作参数传入，以及从函数中返回 JSX.
 
-### React元素是如何渲染的？(客户端是如何渲染的？)
+### React元素是如何渲染的？(浏览器是如何渲染的？)
 
+React元素渲染本质上就是构建JSX对象树(Virtual DOM)，转换成真实的DOM的过程。每次状态state和属性props数据更新后，重新计算Virtual DOM，并和上一次生成的虚拟DOM做对比，对发生变化的部分做批量更新。而 React 是通过创建与更新虚拟元素 Virtual Element 来管理整个Virtual Dom 的。
 
+虚拟元素可以理解为真实元素的对应，它的构建与更新都是在内存中完成的，并不会真正渲染到 dom 中去。
 
-### React的事件响应和传递机制?(捕获、冒泡)
+(未完...)
 
 ### 参考文件:
 
@@ -60,3 +66,5 @@ JSX是JavaScript的语法糖，在Babel编译的时候会将元素转换成<code
 [React官方文档](https://zh-hans.reactjs.org/)
 
 [你不知道的浏览器渲染原理](https://www.infoq.cn/article/dltdultozik_zrqfb4jg)
+
+[一文掌握React 渲染原理及性能优化](https://cloud.tencent.com/developer/article/1520009)
