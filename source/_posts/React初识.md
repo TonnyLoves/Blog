@@ -67,4 +67,4 @@ React元素渲染本质上就是构建JSX对象树(Virtual DOM)，转换成真�
 
 [你不知道的浏览器渲染原理](https://www.infoq.cn/article/dltdultozik_zrqfb4jg)
 
-[一文掌握React 渲染原理及性能优化](https://cloud.tencent.com/developer/article/1520009)
+[一文掌握React 渲染原理及性能优化](https://cloud.tencent.com/developer/article/1520009)hexo 

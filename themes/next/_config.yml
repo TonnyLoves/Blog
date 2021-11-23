@@ -75,7 +75,7 @@ footer:
 canonical: true
 
 # Change headers hierarchy on site-subtitle (will be main site description) and on all post/pages titles for better SEO-optimization.
-seo: false
+seo: true
 
 # If true, will add site-subtitle to index page, added in main hexo config.
 # subtitle: Subtitle
@@ -92,11 +92,11 @@ index_with_subtitle: false
 # Value before `||` delimeter is the target link.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
-  home: / || home
+  home: /|| home
   #about: /about/ || user
-  tags: /tags/ || tags
+  #tags: /tags/ || tags
   #categories: /categories/ || th
-  archives: /archives/ || archive
+  archives: /archives/|| archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -114,7 +114,7 @@ menu_icons:
 # scheme: Muse
 #scheme: Mist
 scheme: Pisces
-# scheme: Gemini
+#scheme: Gemini
 
 
 # ---------------------------------------------------------------
@@ -369,9 +369,9 @@ disqus:
 
 # changyan
 changyan:
-  enable: true
-  appid: cyvKt8fPj
-  appkey: f1e9c5077c3fea17de408f75f1444e54
+  enable: false
+  appid:
+  appkey:
 
 
 # Valine.
@@ -418,8 +418,8 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-baidushare:
-  type: button
+#baidushare:
+##  type: button
 
 # Share
 # This plugin is more useful in China, make sure you known how to use it.
@@ -549,7 +549,7 @@ firestore:
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
 busuanzi_count:
   # count values only if the other configs are false
-  enable: false
+  enable: true
   # custom uv span for the whole site
   site_uv: true
   site_uv_header: <i class="fa fa-user"></i>
@@ -698,7 +698,7 @@ pace_theme: pace-theme-minimal
 canvas_nest: false
 
 # three_waves
-three_waves: true
+three_waves: false
 
 # canvas_lines
 canvas_lines: false
