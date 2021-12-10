@@ -6,7 +6,48 @@ tags:
 
 ## iOS自动布局机制(Autolayout)
 
+### AutoLayout原理介绍
 
+Auto Layout 是苹果公司在iOS6发布的界面布局技术，为了适配不同大小屏幕及屏幕变化而推出的一种技术方案，旨在实现一次编写布局界面UI，自动适应所有屏幕布局，并随着iOS SDK的迭代逐步完善了各种布局API、提供多种使用Auto Layout的布局方式。实际上Auto Layout算法本身并非有Apple发明，Auto Layout源于Cassary约束解析工具包。该算法由Alan Borning、Kim Marriott、Peter Stuckey、Yi Xiao于1997年发布，该算法的主要思想是：将基于约束系统的布局规则（本质上是表示视图布局关系的线性方程组）转化为表示规则的视图几何参数。
+
+### AutoLayout布局机制
+
+创建视图树，描述视图之间的约束、设置优先级、设置视图内容，Layout Engine计算出视图位置、尺寸，绘制出对应的图层。
+Auto Layout布局过程涉及延迟机制，并非一有约束更新就马上进行布局重绘，当有约束更改时，系统的默认做法是延迟更新，目的是实现批量更改约束、绘制视图，避免频繁遍历视图层级，优化性能。当更新约束太慢影响到后序代码逻辑，也可强制马上更新。如下图所示：
+
+{% asset_img BlackBox.jpeg Auto Layout 布局机制 %}
+
+图中***intrinsicContentSize***参与了layout Engine中的布局计算，所以这是为什么系统控制在采用自动布局的时候会回调***intrinsicContentSize***方法，这就是为什么有些系统空间UIButton, UILabel以及UIImageView能通过其获取控件大小。
+
+### AutoLayout生命周期(Layout Engine)
+
+AutoLayout的生命周期其实就是一次运行循环中，从约束的变化到从Layout Engine中复制出Frame的过程。具体流程如下：
+1. RunLoop监听**Constrints Change**
+
+    Constrints Change主要做了两件事：
+    1). 更新约束:
+        * 激活或失效约束
+        * 修改constant和priority
+        * 添加或移除View
+    2). 重新计算布局
+        * 接收到新的Frame值，但是这时候还未更新UI
+        * 调用setNeedsLayout，标记待更新
+
+2. **Deferred Layout**阶段，视图的位置、尺寸值会在这个过程计算，设置到对应视图上，并绘制出来；
+    Deferred Layout pass主要：
+    1). 更新约束:(确保将要发生改变的视图能够在此时更新，在遍历视图树重新摆放视图之前及时更新)
+        * 从下到上，调用View的updateConstraints(批处理)
+    2). 重新赋值Frames, 更新UI
+        * 从上到下，调用待更新View的layoutSubviews
+        * 从layout engine中复制frame，并赋值给对应的view
+3. 下一次RunLoop继续监听
+
+
+如下图所示: 
+
+{% asset_img LayoutEngine.jpeg Auto Layout 生命周期 %}
+
+总而言之，Runloop在整个AutoLayout生命周期中，发挥了重要作用；包括监听约束变化、延迟更新以及渲染到界面的时机等。
 
 ## 如何正确获取内容高度
 
@@ -60,3 +101,5 @@ let height = font.lineHeight // 获取到单行行高
 ## 参考资料
 
 [1. Font与字体大小](http://www.saitjr.com/ios/textlayout-font-and-size.html#%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E8%AE%A1%E7%AE%97)
+
+[2. Advanced Auto Layout(官方文档)](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/ModifyingConstraints.html#//apple_ref/doc/uid/TP40010853-CH29-SW1)
