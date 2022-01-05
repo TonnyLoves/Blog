@@ -87,7 +87,7 @@
 <meta property="og:description" content="什么是闭包？(闭包 &#x3D; 包含的函数代码块 + 所处的上下文环境)闭包简单的说就是自包含的函数代码块以及所处的上下文环境。自包含的函数代码块其实就可以认为与匿名函数无异，而所处的上下文环境，却是闭包区别于匿名函数的地方，闭包可以捕获其所在上下文任意常量和变量的引用。Swift、OC等高级语言会为你管理捕获过程中涉及到的所有内存操作(值捕获)。 Swift值捕获以及与OC值捕获的区别闭包可以在其被定义">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-12-16T10:10:30.000Z">
-<meta property="article:modified_time" content="2022-01-05T14:23:21.340Z">
+<meta property="article:modified_time" content="2022-01-05T14:28:53.975Z">
 <meta property="article:author" content="汤强">
 <meta property="article:tag" content="Object-C Swift React-native CSS HTML5 JavaScript">
 <meta name="twitter:card" content="summary">
@@ -316,7 +316,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-05T22:23:21+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-05T22:28:53+08:00">
                 2022-01-05
               </time>
             
@@ -408,6 +408,7 @@
 <h3 id="OC-Block类型"><a href="#OC-Block类型" class="headerlink" title="OC Block类型"></a>OC Block类型</h3><p>Object-C根据其在虚拟内存空间的存储位置将Block划分为：栈Block、堆Block以及全局Block；ARC下，为保证Block的生命周期，在编译的时候，会对Block进行拷贝，并复制到堆上。</p>
 <h4 id="栈Block"><a href="#栈Block" class="headerlink" title="栈Block"></a>栈Block</h4><p>栈Block顾名思义就是存储在栈区的block，其作用域很明显在当前方法栈中，方法调用完成后，弹栈，对应的block也将随之销毁。以下是栈block的实现: </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 方法调用</span><br><span class="line">[self testBlock:^&#123;</span><br><span class="line">    self.view.backgroundColor = UIColor.redColor;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// 方法</span><br><span class="line">- (void)testBlock:(void(^)(void))block &#123;</span><br><span class="line">    NSLog(@&quot;栈block%@&quot;, block);</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 结果</span><br><span class="line">代码中 NSLog(@&quot;栈block%@&quot;, block);</span><br><span class="line">// &lt;__NSMallocBlock__&gt;</span><br><span class="line">console中 po NSLog(@&quot;栈block%@&quot;, block);</span><br><span class="line">// &lt;__NSStackBlock__&gt;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>注意事项：上述中将block作为函数参数，且不会造成循环引用，这是因为上述的方法中的block为栈block，随着方法调用结束，block最终被弹栈。那为什么上述NSLog会打印出堆block呢？这是因为ARC下所有的栈block均会在编译器编译时候复制到堆中，故打印出来是堆block.</p>
 </blockquote>
@@ -416,14 +417,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 全局变量</span><br><span class="line">int i = 0;</span><br><span class="line">// 静态全局变量</span><br><span class="line">static int j = 0;</span><br><span class="line"></span><br><span class="line">// 静态局部变量</span><br><span class="line">static int k = 0;</span><br><span class="line">void(^block)(void) = ^&#123;</span><br><span class="line">    NSLog(@&quot;%d-%d-%d&quot;, i, j, k);</span><br><span class="line">&#125;;</span><br><span class="line">block();</span><br><span class="line"></span><br><span class="line">// 结果：</span><br><span class="line">// &lt;__NSGlobalBlock__&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Swift-闭包的循环引用以及-OC-Block的循环引用"><a href="#Swift-闭包的循环引用以及-OC-Block的循环引用" class="headerlink" title="Swift 闭包的循环引用以及 OC Block的循环引用"></a>Swift 闭包的循环引用以及 OC Block的循环引用</h2><p>Swift与Object-C的内存管理机制：自动引用计数(ARC), 当一个对象被强引用，那这个对象的引用计数将会+1；当强引用变量销毁，则引用计数将会-1；当一个对象的引用计数为0，这个对象将会面临销毁。而此时可能存在一种状况，一个对象强引用另个一个对象的同时，另一个对象也强引用此对象，它们相互引用，形成了一个环，这就是循环引用。简单点来说：<em><strong>只有相互引用才会引发循环引用</strong></em></p>
-<h3 id="Swift-闭包的循环引用"><a href="#Swift-闭包的循环引用" class="headerlink" title="Swift 闭包的循环引用"></a>Swift 闭包的循环引用</h3><p>先来看一个案例：<br>···<br>    self.someFunctionWithNonescapingClosure {<br>        self.view.backgroundColor = UIColor.red<br>    }<br>    func someFunctionWithNonescapingClosure(closure: @escaping () -&gt; Void) {<br>        closure()<br>    }<br>···<br>以上的方式编码方式会不会造成循环引用呢？显然是不会，为什么因为此时闭包与self并不会构成循环引用。<br>闭包参数在函数弹栈后，并不被self持有，故不会造成循环引用。</p>
-<p>现在我们加几行代码再看看：<br>···<br>    // 属性<br>    var closure: (() -&gt; Void)?<br>    // 方法<br>    self.someFunctionWithNonescapingClosure {<br>        self.view.backgroundColor = UIColor.red<br>    }<br>    func someFunctionWithNonescapingClosure(closure: @escaping () -&gt; Void) {<br>        self.closure = closure<br>        // closure()<br>    }<br>    // 调用<br>    self.closure()<br>···<br>以上的方式编码方式会不会造成循环引用呢？显然是会，为什么因为此时闭包与self构成循环引用。那如何解决呢？<br>Swift提供了两种方案来解决循环引用: weak与unowned；<br>···<br>    // 方法1<br>    self.someFunctionWithNonescapingClosure { [weak self] in<br>        self?.view.backgroundColor = UIColor.red<br>    }</p>
-<pre><code>// 方法2
-self.someFunctionWithNonescapingClosure &#123; [unowned self] in
-    self.view.backgroundColor = UIColor.red
-&#125;
-</code></pre>
-<p>···<br>这两种方法的区别在哪呢？</p>
+<h3 id="Swift-闭包的循环引用"><a href="#Swift-闭包的循环引用" class="headerlink" title="Swift 闭包的循环引用"></a>Swift 闭包的循环引用</h3><p>先来看一个案例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">self.someFunctionWithNonescapingClosure &#123;</span><br><span class="line">    self.view.backgroundColor = UIColor.red</span><br><span class="line">&#125;</span><br><span class="line">func someFunctionWithNonescapingClosure(closure: @escaping () -&gt; Void) &#123;</span><br><span class="line">    closure()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上的方式编码方式会不会造成循环引用呢？显然是不会，为什么因为此时闭包与self并不会构成循环引用。<br>闭包参数在函数弹栈后，并不被self持有，故不会造成循环引用。</p>
+<p>现在我们加几行代码再看看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 属性</span><br><span class="line">var closure: (() -&gt; Void)?</span><br><span class="line">// 方法</span><br><span class="line">self.someFunctionWithNonescapingClosure &#123;</span><br><span class="line">    self.view.backgroundColor = UIColor.red</span><br><span class="line">&#125;</span><br><span class="line">func someFunctionWithNonescapingClosure(closure: @escaping () -&gt; Void) &#123;</span><br><span class="line">    self.closure = closure</span><br><span class="line">    // closure()</span><br><span class="line">&#125;</span><br><span class="line">// 调用</span><br><span class="line">self.closure()</span><br></pre></td></tr></table></figure>
+<p>以上的方式编码方式会不会造成循环引用呢？显然是会，为什么因为此时闭包与self构成循环引用。那如何解决呢？<br>Swift提供了两种方案来解决循环引用: weak与unowned；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 方法1</span><br><span class="line">self.someFunctionWithNonescapingClosure &#123; [weak self] in</span><br><span class="line">    self?.view.backgroundColor = UIColor.red</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 方法2</span><br><span class="line">self.someFunctionWithNonescapingClosure &#123; [unowned self] in</span><br><span class="line">    self.view.backgroundColor = UIColor.red</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这两种方法的区别在哪呢？</p>
 <ol>
 <li>weak: swift引入了新的语法可选值，被weak修饰的变量，在销毁时，会自动的将weak修饰的对象置为nil，不会野指针错误。</li>
 <li>unowned: 则不会置为niL，会野指针错误</li>
