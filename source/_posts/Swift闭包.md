@@ -110,6 +110,7 @@ Object-C根据其在虚拟内存空间的存储位置将Block划分为：栈Bloc
 #### 栈Block
 
 栈Block顾名思义就是存储在栈区的block，其作用域很明显在当前方法栈中，方法调用完成后，弹栈，对应的block也将随之销毁。以下是栈block的实现: 
+
 ```
     // 方法调用
     [self testBlock:^{
@@ -128,6 +129,7 @@ Object-C根据其在虚拟内存空间的存储位置将Block划分为：栈Bloc
     console中 po NSLog(@"栈block%@", block);
     // <__NSStackBlock__>
 ```
+
 > 注意事项：上述中将block作为函数参数，且不会造成循环引用，这是因为上述的方法中的block为栈block，随着方法调用结束，block最终被弹栈。那为什么上述NSLog会打印出堆block呢？这是因为ARC下所有的栈block均会在编译器编译时候复制到堆中，故打印出来是堆block.
 
 #### 堆Block
@@ -157,9 +159,59 @@ Object-C根据其在虚拟内存空间的存储位置将Block划分为：栈Bloc
 
 ## Swift 闭包的循环引用以及 OC Block的循环引用
 
+Swift与Object-C的内存管理机制：自动引用计数(ARC), 当一个对象被强引用，那这个对象的引用计数将会+1；当强引用变量销毁，则引用计数将会-1；当一个对象的引用计数为0，这个对象将会面临销毁。而此时可能存在一种状况，一个对象强引用另个一个对象的同时，另一个对象也强引用此对象，它们相互引用，形成了一个环，这就是循环引用。简单点来说：***只有相互引用才会引发循环引用***
+
 ### Swift 闭包的循环引用
 
+先来看一个案例：
+```
+    self.someFunctionWithNonescapingClosure {
+        self.view.backgroundColor = UIColor.red
+    }
+    func someFunctionWithNonescapingClosure(closure: @escaping () -> Void) {
+        closure()
+    }
+```
+以上的方式编码方式会不会造成循环引用呢？显然是不会，为什么因为此时闭包与self并不会构成循环引用。
+闭包参数在函数弹栈后，并不被self持有，故不会造成循环引用。
+
+现在我们加几行代码再看看：
+```
+    // 属性
+    var closure: (() -> Void)?
+    // 方法
+    self.someFunctionWithNonescapingClosure {
+        self.view.backgroundColor = UIColor.red
+    }
+    func someFunctionWithNonescapingClosure(closure: @escaping () -> Void) {
+        self.closure = closure
+        // closure()
+    }
+    // 调用
+    self.closure()
+```
+以上的方式编码方式会不会造成循环引用呢？显然是会，为什么因为此时闭包与self构成循环引用。那如何解决呢？
+Swift提供了两种方案来解决循环引用: weak与unowned；
+```
+    // 方法1
+    self.someFunctionWithNonescapingClosure { [weak self] in
+        self?.view.backgroundColor = UIColor.red
+    }
+
+    // 方法2
+    self.someFunctionWithNonescapingClosure { [unowned self] in
+        self.view.backgroundColor = UIColor.red
+    }
+```
+这两种方法的区别在哪呢？
+1. weak: swift引入了新的语法可选值，被weak修饰的变量，在销毁时，会自动的将weak修饰的对象置为nil，不会野指针错误。
+2. unowned: 则不会置为niL，会野指针错误
+
 ### OC Block的循环引用
+
+OC Block的场景与Swift的一样，只是解决循环引用的时候关键字不太一样而已：__weak 与 __unsafe_unretained；
+1. __weak, 本质上是观察者模式, 一旦对象被释放后, 指针地址自动置为 nil；
+2. __unsafe_unretained 弱引用对象都用 assign 修饰, 不会增加引用计数. 但是对象被释放, 地址不会改变, 继续访问, 会引起野指针
 
 ## 参考引用
 
