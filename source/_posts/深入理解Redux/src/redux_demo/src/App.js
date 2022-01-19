@@ -6,7 +6,7 @@ import { useState } from 'react';
 function App() {
   const dispatch = useDispatch()
   const counter = useSelector((state) => {
-    return state.counter
+    return state
   })
   return (
     <div className="App">

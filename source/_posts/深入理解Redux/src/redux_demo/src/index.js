@@ -6,21 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-// 初始状态
-const preloadState = {
-  counter: 1
-};
-
 // reducer方法
 const reducer = (state, action) => {
+  if (typeof state === 'undefined') {
+    return 0
+  }
   if (action.type === "add") {
     return state + 1
-  } else {
-    return state - 1
   }
+  return state - 1
 }
-
-const store = createStore(reducer, preloadState)
+const store = createStore(reducer)
 
 ReactDOM.render(
   <React.StrictMode>
