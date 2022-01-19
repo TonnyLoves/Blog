@@ -4,19 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
+// 初始状态
+const proloadedState = {
+  counter: 1,
+}
 // reducer方法
-const reducer = (state, action) => {
-  if (typeof state === 'undefined') {
-    return 0
-  }
+const counter = (state, action) => {
   if (action.type === "add") {
     return state + 1
   }
   return state - 1
 }
-const store = createStore(reducer)
+
+const reducers = combineReducers({
+  counter
+});
+
+const store = createStore(reducers, proloadedState)
 
 ReactDOM.render(
   <React.StrictMode>
