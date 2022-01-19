@@ -4,9 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { createStoreHook } from 'react-redux';
+import { createStore } from 'redux';
 
-const store = createStoreHook()
+// 初始状态
+const preloadState = {
+  counter: 1
+};
+
+// reducer方法
+const reducer = (state, action) => {
+  if (action.type === "add") {
+    return state + 1
+  } else {
+    return state - 1
+  }
+}
+
+const store = createStore(reducer, preloadState)
 
 ReactDOM.render(
   <React.StrictMode>
