@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
+import { ReactReduxContext } from 'react-redux';
 
 // 初始状态
 const proloadedState = {
@@ -26,7 +27,7 @@ const store = createStore(reducers, proloadedState)
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store} context={ ReactReduxContext }>
       <App />
     </Provider>
   </React.StrictMode>,
