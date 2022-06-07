@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { ReactReduxContext } from 'react-redux';
+import Counter from './exmpale/stateMangement';
 
 // 初始状态
 const proloadedState = {
@@ -28,7 +29,8 @@ const store = createStore(reducers, proloadedState)
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} context={ ReactReduxContext }>
-      <App />
+      {/* <App /> */}
+      <Counter />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -37,7 +37,13 @@ void handleUncaughtException(NSException *exception) {
 
 /// 开始监听NSException
 - (void)startMonitor {
-    NSSetUncaughtExceptionHandler(&handleUncaughtException);
+    BOOL isOrigin = YES;
+    if (isOrigin) {
+        NSUncaughtExceptionHandler *originUncaughtExceptionHandler = NSGetUncaughtExceptionHandler();
+        NSSetUncaughtExceptionHandler(originUncaughtExceptionHandler);
+    } else {
+        NSSetUncaughtExceptionHandler(&handleUncaughtException);
+    }
 }
 
 @end

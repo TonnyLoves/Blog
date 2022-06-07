@@ -20,7 +20,14 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    [self performSelector:NSSelectorFromString(@"textFunciton")];
+    @try {
+        [self performSelector:NSSelectorFromString(@"textFunciton")];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+    }
+    @finally {
+    }
 }
 
 
