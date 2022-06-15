@@ -22,7 +22,7 @@ const counter = (state, action) => {
 
 const reducers = combineReducers({
   counter
-});
+});   
 
 const store = createStore(reducers, proloadedState)
 
