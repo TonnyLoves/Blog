@@ -81,6 +81,7 @@ store对象包含以下几个方面内容：
 ```
     listener: 每当dispatch action 的时候都会执行的回调。state树中的一部分可能已经变化。你可以在回调函数里面调用getState() 来拿到当前state。store的reducer应该是纯函数，因此你可能需要对state树中的引用做深度比较来确定它的值是否有变化。
 ```
+
 4. replaceReducer(nextReducer): 替换当前使用的Reducer函数
 
 ## 异步Action与异步数据流

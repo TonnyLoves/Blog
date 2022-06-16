@@ -10,11 +10,12 @@ const preloadState = {
   counter: 1
 };
 
+// reducer： 函数（state, action） => nweState
 const reducer = (state, action) => {
   if (action.type === "add") {
-    return { counter: state + 1 }
+    return { counter: state.counter + 1 }
   } else {
-    return { counter: state - 1 }
+    return { counter: state.counter - 1 }
   }
 }
 
