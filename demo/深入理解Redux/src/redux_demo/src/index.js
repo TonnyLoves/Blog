@@ -4,9 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { ReactReduxContext } from 'react-redux';
 import Counter from './exmpale/stateMangement';
+import thunk from 'redux-thunk';
+import AsyncAction from './exmpale/AsyncAction';
 
 // 初始状态
 const proloadedState = {
@@ -24,13 +26,14 @@ const reducers = combineReducers({
   counter
 });   
 
-const store = createStore(reducers, proloadedState)
+const store = createStore(reducers, proloadedState, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} context={ ReactReduxContext }>
       {/* <App /> */}
-      <Counter />
+      {/* <Counter /> */}
+      <AsyncAction />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

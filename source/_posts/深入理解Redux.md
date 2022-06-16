@@ -81,7 +81,13 @@ store对象包含以下几个方面内容：
 ```
     listener: 每当dispatch action 的时候都会执行的回调。state树中的一部分可能已经变化。你可以在回调函数里面调用getState() 来拿到当前state。store的reducer应该是纯函数，因此你可能需要对state树中的引用做深度比较来确定它的值是否有变化。
 ```
-4. replaceReducer: (nextReducer)
+4. replaceReducer(nextReducer): 替换当前使用的Reducer函数
 
+## 异步Action与异步数据流
 
+每当 dispatch action 时，state 会被立即更新，它只有同步操作。之前我们已经探究过同步的Action Creator函数。
+
+如何把之前定义的同步action创建函数和网络请求结合起来呢？标准的做法是使用 Redux Thunk 中间件。要引入 redux-thunk 这个专门的库才能使用。我们后面会介绍 middleware 大体上是如何工作的；目前，你只需要知道一个要点：通过使用指定的 middleware，action 创建函数除了返回 action 对象外还可以返回函数。这时，这个 action 创建函数就成为了 thunk。
+
+当 action 创建函数返回函数时，这个函数会被 Redux Thunk middleware 执行。这个函数并不需要保持纯净；它还可以带有副作用，包括执行异步 API 请求。这个函数还可以 dispatch action，就像 dispatch 前面定义的同步 action 一样。
 
