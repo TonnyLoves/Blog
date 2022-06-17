@@ -88,7 +88,38 @@ store对象包含以下几个方面内容：
 
 每当 dispatch action 时，state 会被立即更新，它只有同步操作。之前我们已经探究过同步的Action Creator函数。
 
+```
+    const dispatch_s = useDispatch()
+
+    const requestDataAsync = () => {
+        fetch("https://www.google.com/search?q=secret+sauce", { mode: 'no-cors' }).then((response)=>{
+            console.log("我测试thunk" + response)
+            dispatch_s({type: 'add'})
+        })
+    }
+
+    requestDataAsync()
+```
+
 如何把之前定义的同步action创建函数和网络请求结合起来呢？标准的做法是使用 Redux Thunk 中间件。要引入 redux-thunk 这个专门的库才能使用。我们后面会介绍 middleware 大体上是如何工作的；目前，你只需要知道一个要点：通过使用指定的 middleware，action 创建函数除了返回 action 对象外还可以返回函数。这时，这个 action 创建函数就成为了 thunk。
 
 当 action 创建函数返回函数时，这个函数会被 Redux Thunk middleware 执行。这个函数并不需要保持纯净；它还可以带有副作用，包括执行异步 API 请求。这个函数还可以 dispatch action，就像 dispatch 前面定义的同步 action 一样。
 
+```
+    const dispatch = useDispatch()
+
+    const requestData = () => {
+        return (dispath, getState) => {
+            fetch("https://www.google.com/search?q=secret+sauce", { mode: 'no-cors' }).then((response)=>{
+                console.log("我测试thunk" + response)
+                dispath({type: 'add'})
+            })
+        }
+    }
+
+    dispatch_s(requestData())
+```
+
+## Middleware(中间件)
+
+Middleware提供的是位于 action 被发起之后，到达 reducer 之前的扩展点。 你可以利用 Redux middleware 来进行日志记录、创建崩溃报告、调用异步接口或者路由等等。

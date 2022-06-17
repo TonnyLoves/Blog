@@ -9,6 +9,7 @@ import { ReactReduxContext } from 'react-redux';
 import Counter from './exmpale/stateMangement';
 import thunk from 'redux-thunk';
 import AsyncAction from './exmpale/AsyncAction';
+import MiddlewareDemo from './exmpale/MiddlewareDemo';
 
 // 初始状态
 const proloadedState = {
@@ -33,7 +34,8 @@ ReactDOM.render(
     <Provider store={store} context={ ReactReduxContext }>
       {/* <App /> */}
       {/* <Counter /> */}
-      <AsyncAction />
+      {/* <AsyncAction /> */}
+      <MiddlewareDemo />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
