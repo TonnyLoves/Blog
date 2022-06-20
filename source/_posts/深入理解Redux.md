@@ -122,4 +122,31 @@ store对象包含以下几个方面内容：
 
 ## Middleware(中间件)
 
-Middleware提供的是位于 action 被发起之后，到达 reducer 之前的扩展点。 你可以利用 Redux middleware 来进行日志记录、创建崩溃报告、调用异步接口或者路由等等。
+Middleware用于扩展dispatch函数，提供的是位于 action 被发起之后，到达 reducer 之前的扩展点。 你可以利用 Redux middleware 来进行日志记录、创建崩溃报告、调用异步接口或者路由等等。
+
+Middleware的签名：(dispatch, getState) => next => action
+
+比如日志中间件
+
+```
+const logger = store => next => action => {
+  console.group(action.type)
+  console.info('dispatching', action)
+  let result = next(action)
+  console.log('next state', store.getState())
+  console.groupEnd()
+  return result
+}
+
+export default logger
+```
+
+## Enhancer（增强件）
+
+Enhancer 用于扩展createStore函数
+
+
+
+## Middleware 与 Enhancer的区别？
+
+大多数的应用都会使用 middleware 或 enhancer 来拓展 Redux store 的功能。（注：middleware 很常见，enhancer 不太常见） middleware 拓展了 Redux dispatch 函数的功能；enhancer 拓展了 Redux store 的功能。
