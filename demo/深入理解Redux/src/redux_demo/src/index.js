@@ -30,6 +30,7 @@ const monitorReducerEnhancer = createStore => (reducer, initialState, enhancer) 
 // 初始状态
 const proloadedState = {
   counter: 1,
+  addTwo: 2,
 }
 // reducer方法
 function sleep (time) {
@@ -37,27 +38,25 @@ function sleep (time) {
 }
 const counter = (state, action) => {
   // sleep(500).then(() => {
-    if (action.type === "add") {
+    if (action.type == "add") {
       return state + 1
     }
-    return state - 1
+    return parseInt(state)
   // })
 }
 const addTwo = (state, action) => {
   // sleep(500).then(() => {
-    if (action.type === "two") {
+    if (action.type == "two") {
       return state + 2
     }
-    return state - 2
+    return parseInt(state)
   // })
 }
-
 
 const reducers = combineReducers({
   counter,
   addTwo
 });   
-
 
 const store = createStore(reducers, proloadedState, monitorReducerEnhancer)
 

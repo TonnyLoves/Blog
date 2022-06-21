@@ -8,6 +8,9 @@ export default function MiddlewareDemo() {
     const counter = useSelector((state)=>{
         return state.counter
     })
+    const addTwoCounter = useSelector((state) => {
+        return state.addTwo
+    })
     const add = () => {
        // dispatchWithLog()
        dispatch_s({type: 'add'})
@@ -18,7 +21,7 @@ export default function MiddlewareDemo() {
      }
     return (
         <div>
-            value: {counter} 
+            value: `{counter} -- {addTwoCounter}`
             <button 
                 onClick={add}
             >
