@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { client } from "../../api/client";
 
 /// Action Creators
 
@@ -11,8 +12,12 @@ export const todosLoaded = todos => {
 }
 
 // 2. 在将其保存到服务器后添加新的待办事项
-export function fetchTodos(dispatch, getState) {
-    dispatch(todosLoaded([]))
+export function fetchTodos() {
+    return async (dipatch) => {
+        const response = await client.get('/fakeApi/todos')
+        console.log(response.todos)
+        dipatch(todosLoaded(response.todos))
+    }
 }
 
 // 3. 记忆化

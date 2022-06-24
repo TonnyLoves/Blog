@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { fetchTodos } from './features/todos/todosSlice';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <nav style={{
+        backgroundColor: 'purple',
+        textAlign: 'center',
+        height: '44px',
+        lineHeight: '44px'
+      }}>
+        <section>
+           <h1>Redux Fundamentals Example</h1>
+        </section>
+      </nav>
+      <main>
+        <section className='medium-contaimer'>
+            <h2 style={{
+              fontSize: '20px',
+              textAlign: 'center'
+            }}>Todos</h2>
+        </section>
+      </main>
     </div>
   );
 }
