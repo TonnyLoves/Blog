@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# xcode
+.xcuserdatad
+
 # testing
 /coverage
 
