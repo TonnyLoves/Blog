@@ -1,3 +1,5 @@
+import Header from './features/header/header';
+import TodoList from './features/todos/TodoList';
 import { fetchTodos } from './features/todos/todosSlice';
 
 function App() {
@@ -5,9 +7,6 @@ function App() {
     <div className="App">
       <nav style={{
         backgroundColor: 'purple',
-        textAlign: 'center',
-        height: '44px',
-        lineHeight: '44px'
       }}>
         <section>
            <h1>Redux Fundamentals Example</h1>
@@ -18,7 +17,13 @@ function App() {
             <h2 style={{
               fontSize: '20px',
               textAlign: 'center'
-            }}>Todos</h2>
+            }}>
+              Todos
+            </h2>
+            <div className='todoapp'>
+                <Header />
+                <TodoList />
+            </div>
         </section>
       </main>
     </div>

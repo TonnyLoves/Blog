@@ -4,11 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './api/server'
+import store from './store';
+import { fetchTodos } from './features/todos/todosSlice';
+import { Provider } from 'react-redux';
+
+store.dispatch(fetchTodos())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

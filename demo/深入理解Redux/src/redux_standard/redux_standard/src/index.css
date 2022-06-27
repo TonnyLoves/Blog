@@ -6,8 +6,72 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+nav {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+}
+nav section {
+  display: flex;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  height: 30px;
+  border-style: hidden;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+ul.todo-list {
+  list-style: none;
+}
+
+.todo-list li {
+  position: relative;
+  font-size: 24px;
+  border-bottom: 1px solid #ededed;
+}
+
+.todo-list li:last-child {
+  border-bottom: none;
+}
+
+.todo-list li .view {
+  display: flex;
+  align-items: center;
+}
+
+.todo-list li .segment {
+  display: flex;
+  align-items: center;
+}
+
+.todo-list li .toggle {
+  text-align: center;
+  width: 40px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
