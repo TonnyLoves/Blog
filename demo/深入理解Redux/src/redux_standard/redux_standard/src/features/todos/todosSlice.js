@@ -85,3 +85,14 @@ export const selectFilteredTodos = createSelector(
         })
     }
 )
+export const selectFilteredTodoIds = createSelector(
+    selectFilteredTodos,
+    (todos) => { 
+        return todos.map((todo) => {
+            return todo.id
+        })
+     }
+)
+export const selectTodoById = (state, todoId) => {
+    return selectTodoEntities(state)[todoId]
+}
