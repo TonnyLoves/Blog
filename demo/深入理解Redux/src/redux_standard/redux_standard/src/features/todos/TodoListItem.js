@@ -25,7 +25,7 @@ const TodoListItem = ({ id }) => {
                         onchange={handleCompletedChanged}
                     />
                     <label for='toggle'>
-                        <div className="todo-text">{'texttexttexttexttexttexttexttexttexttexttexttexttexttext'}</div>
+                        <div className="todo-text">{text}</div>
                     </label>
                 </div>
                 <div className="segment buttons">

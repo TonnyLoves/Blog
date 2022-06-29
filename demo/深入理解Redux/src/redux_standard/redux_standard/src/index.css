@@ -94,7 +94,36 @@ ul.todo-list {
 
 .todo-list li .buttons {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+
+}
+
+.todo-list li .destroy {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  font-size: 30px;
+  line-height: 30px;
+  color: #ff0000;
+  transition: color 0.2s ease-out;
+  background: unset !important;
+  border: unset !important;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.todo-list li .destroy:hover {
+  color: #cc9a9a;
+}
+
+.todo-list li select {
+  width: 90px !important;
+  padding: 0.1rem 0 0.1rem 0.4rem;
+  margin: 0 10px;
+  height: 30px;
+  line-height: 24px;
+  font-weight: 700;
 }
 
 .loader {
