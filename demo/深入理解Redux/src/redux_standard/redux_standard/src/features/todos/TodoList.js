@@ -15,7 +15,6 @@ const TodoList = () => {
         )
     }
     const renderedListItems = todoIds.map((todoid) => {
-        console.log(todoid)
         return (
             <TodoListItem 
                 key={todoid}

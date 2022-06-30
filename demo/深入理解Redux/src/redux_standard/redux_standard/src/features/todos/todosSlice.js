@@ -17,6 +17,20 @@ export const todosLoaded = (todos) => {
         payload: todos
     }
 }
+// 3. 标记选中
+export const todoToggled = (todoId) => {
+    return {
+        type: 'todos/todoToggled',
+        payload: todoId
+    }
+}
+// 4. 删除
+export const todoDeleted = (todoId) => {
+    return {
+        type: 'todos/todoDeleted',
+        payload: todoId
+    }
+}
 
 // 2. 在将其保存到服务器后添加新的待办事项
 export function fetchTodos() {
@@ -35,6 +49,27 @@ const initialState = {
 
 export default function todosReducer(state = initialState, action) {
     switch (action.type) {
+        case 'todos/todoDeleted':
+            const newEntitiesForDeleted = { ...state.entities }
+            delete newEntitiesForDeleted[action.payload];
+            return {
+              ...state,
+              entities: newEntitiesForDeleted
+            }
+        case 'todos/todoToggled':
+            const todoId = action.payload
+            console.log(todoId)
+            const todo = state.entities[todoId]
+            return {
+                ...state,
+                entities: {
+                  ...state.entities,
+                  [todoId]: {
+                    ...todo,
+                    completed: !todo.completed,
+                  },
+                },
+            }
         case 'todos/todosLoading': 
             return {
                 ...state,
