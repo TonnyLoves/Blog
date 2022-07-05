@@ -8,6 +8,10 @@ import store from './store';
 import { fetchTodos } from './features/todos/todosSlice';
 import { Provider } from 'react-redux';
 
+window.onload = () => {
+ 
+}
+
 store.dispatch(fetchTodos())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

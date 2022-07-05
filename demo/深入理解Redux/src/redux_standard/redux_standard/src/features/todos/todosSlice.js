@@ -31,6 +31,27 @@ export const todoDeleted = (todoId) => {
         payload: todoId
     }
 }
+// 4. 添加
+export const todoAdded = (todo) => {
+    return {
+        type: 'todos/todoAdded',
+        payload: todo
+    }
+}
+
+// 5. 全选
+export const todoAllCompleted = () => {
+    return {
+        type: 'todos/todoAllCompleted'
+    }
+}
+
+// 6. 清除
+export const todoClearedCompleted = () => {
+    return {
+        type: 'todos/todoClearedCompleted'
+    }
+}
 
 // 2. 在将其保存到服务器后添加新的待办事项
 export function fetchTodos() {
@@ -49,6 +70,39 @@ const initialState = {
 
 export default function todosReducer(state = initialState, action) {
     switch (action.type) {
+        case 'todos/todoClearedCompleted':
+            const newEntitiesForClearedCompleted ={ ...state.entities }
+            Object.values(newEntitiesForClearedCompleted).forEach((todo) => {
+                newEntitiesForClearedCompleted[todo.id] = {
+                    ...todo,
+                    completed: false
+                }
+            })
+            return {
+                ...state,
+                entities: newEntitiesForClearedCompleted
+            }
+        case 'todos/todoAllCompleted':
+            const newEntitiesForAllCompleted ={ ...state.entities }
+            Object.values(newEntitiesForAllCompleted).forEach((todo) => {
+                newEntitiesForAllCompleted[todo.id] = {
+                    ...todo,
+                    completed: true
+                }
+            })
+            return {
+                ...state,
+                entities: newEntitiesForAllCompleted
+            }
+        case 'todos/todoAdded':
+            const todoForAdded = action.payload
+            return {
+                ...state,
+                entities: {
+                    ...state.entities,
+                    [todoForAdded.id]: todoForAdded
+                }
+            }
         case 'todos/todoDeleted':
             const newEntitiesForDeleted = { ...state.entities }
             delete newEntitiesForDeleted[action.payload];
@@ -130,4 +184,12 @@ export const selectFilteredTodoIds = createSelector(
 )
 export const selectTodoById = (state, todoId) => {
     return selectTodoEntities(state)[todoId]
+}
+
+export function saveNewTodo(text) {
+    return async function saveNewTodoThunk(dispatch, getState) {
+        const initialTodo = {text};
+        const response = await client.post("/fakeApi/todos", { todo: initialTodo });
+        dispatch(todoAdded(response.todo));
+    }
 }

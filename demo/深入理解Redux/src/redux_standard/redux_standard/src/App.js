@@ -1,3 +1,4 @@
+import Footer from './features/footer/Footer';
 import Header from './features/header/header';
 import TodoList from './features/todos/TodoList';
 import { fetchTodos } from './features/todos/todosSlice';
@@ -23,6 +24,7 @@ function App() {
             <div className='todoapp'>
                 <Header />
                 <TodoList />
+                <Footer />
             </div>
         </section>
       </main>

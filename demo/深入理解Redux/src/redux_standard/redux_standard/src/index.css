@@ -24,6 +24,31 @@ nav section {
   display: flex;
 }
 
+/* main section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+} */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.footer .actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.footer .actions button {
+  padding: 5px 10px;
+  margin: 5px 6px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
 .header {
   display: flex;
   justify-content: center;
