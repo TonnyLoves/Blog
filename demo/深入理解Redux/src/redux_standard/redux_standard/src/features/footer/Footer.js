@@ -1,6 +1,6 @@
 import { useReducer } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { statusFilterCHanged, StatusFilters } from "../filters/filtersSlice"
+import { statusFilterChanged, StatusFilters } from "../filters/filtersSlice"
 import { selectTodos, todoAllCompleted, todoClearedCompleted } from "../todos/todosSlice"
 
 const RemainingTodos = ({ count }) => {
@@ -13,15 +13,16 @@ const RemainingTodos = ({ count }) => {
     )
 }
 
-export const StatusFiltersUI = ({ value: status, onChange }) => {
+export const StatusFiltersUI = ({ value: status, onchange }) => {
     const renderedFilters = Object.keys(StatusFilters).map((key) => {
         const value = StatusFilters[key]
         const handleClick = () => {
-            onChange(value)
+            onchange(value)
         }
+        const className = value === status ? 'selected' : ''
         return (
             <li key={value}>
-                <button onClick={handleClick}>
+                <button className={className} onClick={handleClick}>
                     {key}
                 </button>
             </li>
@@ -51,9 +52,13 @@ const Footer = () => {
         return uncompletedTodos.length
     })
 
-    const { status, color  } = useSelector((state) => state.filters)
+    const { status, color } = useSelector((state) => {
+        return state.filters
+    })
 
-    const onStatusChange = (status) => dispatch(statusFilterCHanged(status))
+    const onStatusChange = (status) => {
+        dispatch(statusFilterChanged(status))
+    }
 
     return (
         <footer className="footer">

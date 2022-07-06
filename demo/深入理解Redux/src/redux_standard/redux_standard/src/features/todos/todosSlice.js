@@ -167,7 +167,7 @@ export const selectFilteredTodos = createSelector(
             return todos
         }
         const completedStatus = status === StatusFilters.Completed
-        return todos.filters((todo) => {
+        return todos.filter((todo) => {
             const statusMatches = showAllCompletions || todo.completed === completedStatus
             const colorMatches = colors.length === 0 || colors.includes(todo.color)
             return statusMatches && colorMatches
@@ -193,3 +193,4 @@ export function saveNewTodo(text) {
         dispatch(todoAdded(response.todo));
     }
 }
+
