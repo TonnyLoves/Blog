@@ -172,3 +172,19 @@ export default monitorReducerEnhancer
 ## Middleware 与 Enhancer的区别？
 
 大多数的应用都会使用 middleware 或 enhancer 来拓展 Redux store 的功能。（注：middleware 很常见，enhancer 不太常见） middleware 拓展了 Redux dispatch 函数的功能；enhancer 拓展了 Redux store 的功能。
+
+## Redux Toolkit（工具类）
+
+Redux Toolkit 是官方的，有观点的，开箱即用的高效 Redux 开发工具集。它旨在成为标准的Redux逻辑开发方式，我们强烈建议使用它。
+
+Redux Toolkit包含：
+
+> configureStore(): 提供简化的配置选项。他可以自动组合切片slice的reducer，添加你提供的任何Redux中间件，默认情况下包含redux-thunk，并启用Redux DevTools扩展。
+
+> createReducer(): 让你自动做 action type到reducer的对应，而不是编写switch...case语句。另外会自动使用 immer 库来让你使用普通的mutable代码编写更简单的 immutale更新。例如 state.todos[3].completed = true。
+
+> createAction() 返回给定action type字符串的action crateor函数。该函数本身已定义了toString(),因此代替常量类型使用。
+
+> createSlice() 接受一组化reducer函数，一个slice切片名和初始状态inital state,并自动生成具有相应action creator 和 action type 的slice reducer。
+
+> createSelector 来源于 Reselect库，重新export出来以方便使用。
