@@ -72,12 +72,7 @@ store对象包含以下几个方面内容：
 
     // class组件
     store.dispatch(action)
-
-    dispath 主要有两个任务: 
-    1. 执行reducer, reducer的控制过程，会执行所有的reducer，并通过action.type来筛选，具体的reducer执行代码.
-    2. 执行subscribe，执行所有的订阅者。
 ```
-
 2. getState()：返回当前的state. 以同步方式调用它调用store 的 redue 函数
 ```
     store.getState()
